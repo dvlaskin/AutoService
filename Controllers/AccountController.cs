@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -11,12 +12,15 @@ namespace AutoService.Controllers
         
         [HttpPost]
         [AllowAnonymous]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Login()
+        public async Task<JsonResult> Login([FromBody]PostObject msg)
         {
-
-            return Json(new {resultValue = "Working..."});
-
+            System.Diagnostics.Debug.WriteLine(msg);
+            return Json(new {resultValue = $"Working... {msg.msg}"});
         }
+    }
+    
+    public class PostObject
+    {
+        public string msg { get; set; }
     }
 }

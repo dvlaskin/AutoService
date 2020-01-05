@@ -3,10 +3,18 @@ import { RouterModule, Routes } from '@angular/router';
 
 import { SelectivePreloadingStrategyService } from './selective-preloading-strategy.service';
 
-import { AppComponent } from "./app.component";
+import { HomeComponent } from "./Home/home.component";
 import { LoginComponent } from "./Auth/LogIn/login.component";
 
 const appRoutes: Routes = [
+    {
+        path: '',
+        component: HomeComponent,
+    },
+    {
+        path: 'home',
+        component: HomeComponent,
+    },
     {
         path: 'login',
         component: LoginComponent,

@@ -7,8 +7,17 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { SelectivePreloadingStrategyService } from './selective-preloading-strategy.service';
+import { HomeComponent } from "./Home/home.component";
 import { LoginComponent } from "./Auth/LogIn/login.component";
 var appRoutes = [
+    {
+        path: '',
+        component: HomeComponent,
+    },
+    {
+        path: 'home',
+        component: HomeComponent,
+    },
     {
         path: 'login',
         component: LoginComponent,

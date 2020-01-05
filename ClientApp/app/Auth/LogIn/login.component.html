@@ -1,7 +1,7 @@
 <div>
     <p>LigIn form</p>
     <div>
-        <input >
-        <button>LogIn</button>
+        <input [(ngModel)] = "email" placeholder = "email">
+        <button (click)="sendRequest()" >LogIn</button>
     </div>    
 </div>
