@@ -1,58 +1,17 @@
 <!DOCTYPE html>
 <html>
-<head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>AutoService</title>
-    <link rel="stylesheet" href="lib/bootstrap/dist/css/bootstrap.css" />
-    <link rel="stylesheet" href="css/site.css" />
-</head>
-<body>
-<header>
-    <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-        <div class="container">
-            <a class="navbar-brand" href="/">AutoService</a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                    aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
-                <ul class="navbar-nav flex-grow-1">
-                    <li class="nav-item">
-                        <a class="nav-link text-dark" href="index.html">Home</a>
-                    </li>
-                </ul>
-            </div>
-            <div>
-                <ul class="navbar-nav flex-grow-1">
-                    <!-- Menu Items -->
-                    LogIn
-                </ul>
-            </div>
-        </div>
-    </nav>
-</header>
-<div class="container">
-    <main role="main" class="pb-3">
-        
-        <app>Загрузка...</app>
-        
-    </main>
-</div>
-
-<footer class="border-top footer text-muted">
-    <div class="container">
-        &copy; 2019 - AutoService -
-    </div>
-</footer>
-
-<script src="lib/jquery/dist/jquery.js"></script>
-<script src="lib/bootstrap/dist/js/bootstrap.bundle.js"></script>
-<script src="js/site.js"></script>
-<script src="lib/jquery-validation/dist/jquery.validate.js"></script>
-<script src="lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"></script>
-<script src="dist/polyfills.js"></script>
-<script src="dist/app.js"></script>
-
-</body>
+    <head>
+        <base href="/" />
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />    
+        <title>AutoService</title>
+        <link rel="stylesheet" href="lib/bootstrap/dist/css/bootstrap.css" />
+        <link rel="stylesheet" href="css/site.css" />
+    </head>
+    <body>
+        <app-root>Загрузка...</app-root>
+        <script src="dist/polyfills.js"></script>
+        <script src="dist/app.js"></script>
+    </body>
 </html>
+
