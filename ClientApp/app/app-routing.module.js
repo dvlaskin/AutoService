@@ -7,6 +7,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { SelectivePreloadingStrategyService } from './selective-preloading-strategy.service';
+import { AuthGuard } from "./Services/auth-guard.service";
 import { HomeComponent } from "./Home/home.component";
 import { LoginComponent } from "./Auth/LogIn/login.component";
 var appRoutes = [
@@ -21,6 +22,11 @@ var appRoutes = [
     {
         path: 'login',
         component: LoginComponent,
+    },
+    {
+        path: 'user',
+        component: HomeComponent,
+        canActivate: [AuthGuard]
     },
     { path: '**', redirectTo: '' }
 ];

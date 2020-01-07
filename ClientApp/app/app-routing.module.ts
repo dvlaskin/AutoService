@@ -2,9 +2,11 @@ import { NgModule }             from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
 import { SelectivePreloadingStrategyService } from './selective-preloading-strategy.service';
+import { AuthGuard } from "./Services/auth-guard.service";
 
 import { HomeComponent } from "./Home/home.component";
 import { LoginComponent } from "./Auth/LogIn/login.component";
+
 
 const appRoutes: Routes = [
     {
@@ -18,6 +20,11 @@ const appRoutes: Routes = [
     {
         path: 'login',
         component: LoginComponent,
+    },
+    {
+        path: 'user',
+        component: HomeComponent,
+        canActivate: [AuthGuard]
     },
     { path: '**', redirectTo: '' }
 ];

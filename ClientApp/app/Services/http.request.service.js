@@ -14,13 +14,14 @@ var HttpRequestService = /** @class */ (function () {
         this.http = http;
         this.url = "/api/";
     }
-    HttpRequestService.prototype.getRequest = function (apiController, getString) {
+    HttpRequestService.prototype.getRequest = function (apiController) {
+        return this.http.get(this.url + apiController);
+    };
+    HttpRequestService.prototype.getRequestParams = function (apiController, getString) {
         return this.http.get(this.url + apiController + '/' + getString);
     };
     HttpRequestService.prototype.postRequest = function (apiController, postObject) {
-        var postObj = new PostObject();
-        postObj.msg = postObject;
-        return this.http.post(this.url + apiController, postObj);
+        return this.http.post(this.url + apiController, postObject);
     };
     HttpRequestService.prototype.putRequest = function (apiController, putId, putObject) {
         return this.http.put(this.url + apiController + '/' + putId, putObject);
@@ -35,9 +36,4 @@ var HttpRequestService = /** @class */ (function () {
     return HttpRequestService;
 }());
 export { HttpRequestService };
-var PostObject = /** @class */ (function () {
-    function PostObject() {
-    }
-    return PostObject;
-}());
 //# sourceMappingURL=http.request.service.js.map

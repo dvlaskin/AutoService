@@ -19,6 +19,12 @@
                     <li>
                         <a class="nav-link text-dark" routerLink="/login" routerLinkActive="active">LogIn</a>
                     </li>
+                    <li *ngIf="isUserAuthenticated()">
+                        <a class="nav-link text-dark" (click)="logOut()">LogOut</a>
+                    </li>
+                    <li>
+                        <span class="nav-link text-dark" (click)="testGet()" >Test</span>
+                    </li>
                 </ul>
             </div>
         </div>

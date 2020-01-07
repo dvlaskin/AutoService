@@ -10,14 +10,16 @@ export class HttpRequestService {
     constructor(private http: HttpClient) {
     }
 
-    getRequest(apiController: string, getString: string) {
+    getRequest(apiController: string) {
+        return this.http.get(this.url + apiController);
+    }
+
+    getRequestParams(apiController: string, getString: string) {
         return this.http.get(this.url + apiController + '/' + getString);
     }
 
-    postRequest(apiController: string, postObject: string) {
-        let postObj = new PostObject();
-        postObj.msg = postObject;
-        return this.http.post(this.url + apiController, postObj);
+    postRequest(apiController: string, postObject: any) {
+        return this.http.post(this.url + apiController, postObject);
     }
     
     putRequest(apiController: string, putId: string, putObject: object) {
@@ -28,8 +30,4 @@ export class HttpRequestService {
     deleteRequest(apiController: string, id: string) {
         return this.http.delete(this.url + apiController + '/' + id);
     }
-}
-
-class PostObject {
-    msg: string
 }
