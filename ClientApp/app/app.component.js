@@ -17,13 +17,19 @@ var AppComponent = /** @class */ (function () {
         this.jwtHelper = jwtHelper;
         this.router = router;
         this.http = http;
+        this.userName = 'LogIn';
     }
+    AppComponent.prototype.ngOnInit = function () {
+        this.setUserName();
+    };
     AppComponent.prototype.isUserAuthenticated = function () {
         var token = tokenGetter();
         if (token && !this.jwtHelper.isTokenExpired(token)) {
+            this.setUserName();
             return true;
         }
         else {
+            this.resetUserName();
             return false;
         }
     };
@@ -32,12 +38,22 @@ var AppComponent = /** @class */ (function () {
         this.router.navigate(["/"]);
     };
     AppComponent.prototype.testGet = function () {
-        this.http.getRequest('account/getrole')
-            .subscribe(function (response) {
-            console.log(response);
-        }, function (err) {
-            console.log(err);
-        });
+        if (this.isUserAuthenticated()) {
+            this.http.getRequest('account/getrole')
+                .subscribe(function (response) {
+                console.log(response);
+            }, function (err) {
+                console.log(err);
+            });
+        }
+    };
+    AppComponent.prototype.setUserName = function () {
+        var token = tokenGetter();
+        var tokenInfo = this.jwtHelper.decodeToken(token);
+        this.userName = tokenInfo.UserName;
+    };
+    AppComponent.prototype.resetUserName = function () {
+        this.userName = "LogIn";
     };
     AppComponent = __decorate([
         Component({

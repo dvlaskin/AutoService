@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import { Router } from '@angular/router';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { tokenGetter } from "./app-jwt.module";
@@ -11,20 +11,28 @@ import { HttpRequestService } from "./Services/http.request.service";
     providers: [ HttpRequestService ]
 })
 
-export class AppComponent {
+export class AppComponent implements OnInit {
+    
+    userName = 'LogIn';
 
     constructor(private jwtHelper: JwtHelperService, private router: Router, private http: HttpRequestService) {}
 
+    ngOnInit(): void {        
+        this.setUserName();
+    }
+
     isUserAuthenticated() {
         
-        let token: string = tokenGetter();
+        const token: string = tokenGetter();
         
         if (token && !this.jwtHelper.isTokenExpired(token)) 
         {
+            this.setUserName();
             return true;
         }
         else 
         {
+            this.resetUserName();
             return false;
         }
     }
@@ -37,15 +45,31 @@ export class AppComponent {
     
     public testGet()
     {
-        this.http.getRequest('account/getrole')
-            .subscribe(response => 
-                {                
-                    console.log(response);
-                }, err => 
-                {
-                    console.log(err);
-                }
-            );
+        if (this.isUserAuthenticated()) 
+        {
+            this.http.getRequest('account/getrole')
+                .subscribe(response =>
+                    {
+                        console.log(response);
+                    }, err =>
+                    {
+                        console.log(err);
+                    }
+                );
+        }      
+
     }
 
+    private setUserName()
+    {
+        const token: string = tokenGetter();
+        const tokenInfo = this.jwtHelper.decodeToken(token);
+        this.userName = tokenInfo.UserName;
+ 
+    }
+    
+    private resetUserName()
+    {
+        this.userName = "LogIn";
+    }
 }

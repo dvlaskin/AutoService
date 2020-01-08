@@ -66,7 +66,8 @@ namespace AutoService.Controllers
                 var claims = new List<Claim>
                 {
                     new Claim(ClaimsIdentity.DefaultNameClaimType, person.Login),
-                    new Claim(ClaimsIdentity.DefaultRoleClaimType, person.Role)
+                    new Claim(ClaimsIdentity.DefaultRoleClaimType, person.Role),
+                    new Claim("UserName", person.Login.Substring(0,person.Login.IndexOf('@')))
                 };
                 
                 ClaimsIdentity claimsIdentity =
