@@ -63,9 +63,11 @@ export class AppComponent implements OnInit {
     private setUserName()
     {
         const token: string = tokenGetter();
-        const tokenInfo = this.jwtHelper.decodeToken(token);
-        this.userName = tokenInfo.UserName;
- 
+        if (token != null)
+        {
+            const tokenInfo = this.jwtHelper.decodeToken(token);
+            this.userName = tokenInfo.UserName;
+        } 
     }
     
     private resetUserName()

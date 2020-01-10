@@ -49,8 +49,10 @@ var AppComponent = /** @class */ (function () {
     };
     AppComponent.prototype.setUserName = function () {
         var token = tokenGetter();
-        var tokenInfo = this.jwtHelper.decodeToken(token);
-        this.userName = tokenInfo.UserName;
+        if (token != null) {
+            var tokenInfo = this.jwtHelper.decodeToken(token);
+            this.userName = tokenInfo.UserName;
+        }
     };
     AppComponent.prototype.resetUserName = function () {
         this.userName = "LogIn";
