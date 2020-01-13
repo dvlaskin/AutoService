@@ -1,15 +1,13 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.IdentityModel.Tokens.Jwt;
-using System.Linq;
-using System.Security.Claims;
 using System.Threading.Tasks;
 using AutoService.Auth;
+using AutoService.DataBase;
 using AutoService.Models.AuthModels;
 using AutoService.Models.IdentityModels;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.IdentityModel.Tokens;
+
 
 namespace AutoService.Controllers
 {
@@ -18,68 +16,62 @@ namespace AutoService.Controllers
     [ApiController]
     public class AccountController : Controller
     {
-        // тестовые данные вместо использования базы данных
-        private List<User> people = new List<User>
+        private readonly AuthService _authService;
+
+        public AccountController(UserManager<User> userManager, SignInManager<User> signInManager)
         {
-            new User() { Login="admin@mail.com", Password="12345", Role = "admin" },
-            new User() { Login="user@mail.com", Password="123", Role = "user" }
-        };
-        
+            _authService = new AuthService(userManager, signInManager);
+        }
+
+        [HttpPost]
+        [AllowAnonymous]
+        public async Task<IActionResult> SignUp([FromBody] SignUpModel signUpData)
+        {
+            if (ModelState.IsValid == false)
+                return BadRequest("Wrong SingUp data format!");
+            
+            try
+            {
+                string encodedJwt = await _authService.SingUpNewUser(signUpData);
+                
+                var response = new
+                {
+                    access_token = encodedJwt,
+                    usermail = signUpData.Email
+                };
+                    
+                return Json(response);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
+        }
         
         [HttpPost]
         [AllowAnonymous]
-        public IActionResult Login([FromBody] LogInModel userInfo)
+        public IActionResult LogIn([FromBody] LogInModel userInfo)
         {
-            var identity = GetIdentity(userInfo.Login, userInfo.Password);
-            if (identity == null)
-            {
+            User userModel = new UsersTable().GetUser(userInfo.Login, userInfo.Password);
+            
+            if (userModel == null)
                 return BadRequest(new { errorText = "Invalid username or password." });
-            }
-           
-            var now = DateTime.UtcNow;
-            // создаем JWT-токен
-            var jwt = new JwtSecurityToken(
-                issuer: AuthOptions.ISSUER,
-                audience: AuthOptions.AUDIENCE,
-                notBefore: now,
-                claims: identity.Claims,
-                expires: now.Add(TimeSpan.FromMinutes(AuthOptions.LIFETIME)),
-                signingCredentials: new SigningCredentials(AuthOptions.GetSymmetricSecurityKey(), SecurityAlgorithms.HmacSha256));
-            var encodedJwt = new JwtSecurityTokenHandler().WriteToken(jwt);
+
+            string encodedJwt = _authService.AuthorizationUser(userModel);
+
+            if (string.IsNullOrEmpty(encodedJwt))
+                return StatusCode(500, "Can't generate auth token!");
  
             var response = new
             {
                 access_token = encodedJwt,
-                username = identity.Name
+                usermail = userModel.Email
             };
- 
+            
             return Json(response);
         }
         
-        
-        private ClaimsIdentity GetIdentity(string login, string password)
-        {
-            User person = people.FirstOrDefault(x => x.Login == login && x.Password == password);
-            
-            if (person != null)
-            {
-                var claims = new List<Claim>
-                {
-                    new Claim(ClaimsIdentity.DefaultNameClaimType, person.Login),
-                    new Claim(ClaimsIdentity.DefaultRoleClaimType, person.Role),
-                    new Claim("UserName", person.Login.Substring(0,person.Login.IndexOf('@')))
-                };
-                
-                ClaimsIdentity claimsIdentity =
-                    new ClaimsIdentity(claims, "Token", ClaimsIdentity.DefaultNameClaimType,
-                        ClaimsIdentity.DefaultRoleClaimType);
-                
-                return claimsIdentity;
-            }
- 
-            // если пользователя не найдено
-            return null;
-        }
+
         
         [HttpGet, Authorize(Roles = "admin")]
         //[AllowAnonymous]

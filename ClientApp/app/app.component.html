@@ -16,10 +16,16 @@
             </div>
             <div>
                 <ul class="navbar-nav flex-grow-1">
-                    <li>
-                        <a class="nav-link text-dark" routerLink="/login" routerLinkActive="active">{{userName}}</a>
+                    <li *ngIf="CheckUserAuth() == false">
+                        <a class="nav-link text-dark" routerLink="/signup" routerLinkActive="active">SignUp</a>
                     </li>
-                    <li *ngIf="isUserAuthenticated()">
+                    <li *ngIf="isUserAuthenticated == false">
+                        <a class="nav-link text-dark" routerLink="/login" routerLinkActive="active">LogIn</a>
+                    </li>
+                    <li *ngIf="isUserAuthenticated">
+                        <a class="nav-link text-dark" routerLink="/login" routerLinkActive="active">Menu {{userName}}</a>
+                    </li>
+                    <li *ngIf="isUserAuthenticated">
                         <a class="nav-link text-dark" (click)="logOut()">LogOut</a>
                     </li>
                     <li>

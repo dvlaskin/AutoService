@@ -20,30 +20,36 @@ var AppComponent = /** @class */ (function () {
         this.userName = 'LogIn';
     }
     AppComponent.prototype.ngOnInit = function () {
+        this.CheckUserAuth();
         this.setUserName();
     };
-    AppComponent.prototype.isUserAuthenticated = function () {
+    AppComponent.prototype.CheckUserAuth = function () {
         var token = tokenGetter();
         if (token && !this.jwtHelper.isTokenExpired(token)) {
             this.setUserName();
-            return true;
+            this.isUserAuthenticated = true;
         }
         else {
             this.resetUserName();
-            return false;
+            this.isUserAuthenticated = false;
         }
+        // console.log(this.isUserAuthenticated);
+        return this.isUserAuthenticated;
     };
     AppComponent.prototype.logOut = function () {
         localStorage.removeItem("jwt");
+        this.CheckUserAuth();
         this.router.navigate(["/"]);
     };
     AppComponent.prototype.testGet = function () {
-        if (this.isUserAuthenticated()) {
+        if (this.isUserAuthenticated) {
             this.http.getRequest('account/getrole')
                 .subscribe(function (response) {
                 console.log(response);
+                alert(response);
             }, function (err) {
                 console.log(err);
+                alert(err);
             });
         }
     };

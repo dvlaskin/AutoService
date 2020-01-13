@@ -13,6 +13,7 @@ import { AppPrimengModule }         from "./app-primeng.module";
 import { AppComponent }             from './app.component';
 import { HomeComponent }            from "./Home/home.component";
 import { LoginComponent }           from "./Auth/LogIn/login.component";
+import { SignupComponent }          from "./Auth/SignUp/signup.component";
 
 
 
@@ -27,7 +28,7 @@ import { LoginComponent }           from "./Auth/LogIn/login.component";
             AppPrimengModule,
             HttpClientModule
         ],
-    declarations: [ AppComponent, HomeComponent, LoginComponent ],
+    declarations: [ AppComponent, HomeComponent, LoginComponent, SignupComponent ],
     bootstrap:    [ AppComponent ]
 })
 

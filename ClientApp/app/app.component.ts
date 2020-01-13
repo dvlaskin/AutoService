@@ -14,46 +14,54 @@ import { HttpRequestService } from "./Services/http.request.service";
 export class AppComponent implements OnInit {
     
     userName = 'LogIn';
+    isUserAuthenticated: boolean;
 
     constructor(private jwtHelper: JwtHelperService, private router: Router, private http: HttpRequestService) {}
 
-    ngOnInit(): void {        
+    ngOnInit(): void {  
+        this.CheckUserAuth();
         this.setUserName();
     }
 
-    isUserAuthenticated() {
+    CheckUserAuth() {
         
         const token: string = tokenGetter();
         
         if (token && !this.jwtHelper.isTokenExpired(token)) 
         {
             this.setUserName();
-            return true;
+            this.isUserAuthenticated = true;
         }
         else 
         {
             this.resetUserName();
-            return false;
+            this.isUserAuthenticated = false;
         }
+        
+        // console.log(this.isUserAuthenticated);
+        return this.isUserAuthenticated;
     }
 
     public logOut() {
         
         localStorage.removeItem("jwt");
+        this.CheckUserAuth();
         this.router.navigate(["/"]);
     }
     
     public testGet()
     {
-        if (this.isUserAuthenticated()) 
+        if (this.isUserAuthenticated) 
         {
             this.http.getRequest('account/getrole')
                 .subscribe(response =>
                     {
                         console.log(response);
+                        alert(response);                        
                     }, err =>
                     {
                         console.log(err);
+                        alert(err);
                     }
                 );
         }      
