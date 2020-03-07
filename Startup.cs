@@ -12,6 +12,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.SpaServices.AngularCli;
 using Microsoft.AspNetCore.SpaServices.Webpack;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -32,6 +33,7 @@ namespace AutoService
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            // database
             services.AddEntityFrameworkSqlite().AddDbContext<DataBaseContext>(option => 
                 option.UseSqlite(Configuration.GetConnectionString("SqliteConnection")));
             
@@ -47,7 +49,7 @@ namespace AutoService
             .AddEntityFrameworkStores<DataBaseContext>();
             
             
-            
+            // cookie policy
             services.Configure<CookiePolicyOptions>(options =>
             {
                 // This lambda determines whether user consent for non-essential cookies is needed for a given request.
@@ -87,6 +89,10 @@ namespace AutoService
 
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+            
+            
+            // In production, the Angular files will be served from this directory
+            services.AddSpaStaticFiles(configuration => { configuration.RootPath = "ClientApp/dist"; });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -94,13 +100,7 @@ namespace AutoService
         {
             if (env.IsDevelopment())
             {
-                app.UseDeveloperExceptionPage();
-                
-                // добавляем сборку через webpack
-                app.UseWebpackDevMiddleware(new WebpackDevMiddlewareOptions
-                {
-                    HotModuleReplacement = true
-                });
+                app.UseDeveloperExceptionPage();   
             }
             else
             {
@@ -114,15 +114,29 @@ namespace AutoService
             app.UseStaticFiles();
             app.UseCookiePolicy();
             app.UseAuthentication();
-
+            
+            
             app.UseMvc(routes =>
             {
                 routes.MapRoute(
                     name: "default",
-                    template: "{controller=Home}/{action=Index}/{id?}");
-                routes.MapSpaFallbackRoute("angular-fallback",
-                    new { controller = "Home", action = "Index" });
+                    template: "{controller}/{action=Index}/{id?}");
             });
+            
+            app.UseSpa(spa =>
+            {
+                // To learn more about options for serving an Angular SPA from ASP.NET Core,
+                // see https://go.microsoft.com/fwlink/?linkid=864501
+
+                spa.Options.SourcePath = "ClientApp";
+                
+
+                if (env.IsDevelopment())
+                {
+                   spa.UseAngularCliServer(npmScript: "start");
+                }
+            });
+
         }
     }
 }

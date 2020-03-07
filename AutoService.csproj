@@ -12,5 +12,70 @@
   </ItemGroup>
   <ItemGroup>
     <_ContentIncludedByDefault Remove="Views\Account\Login.cshtml" />
+    <_ContentIncludedByDefault Remove="wwwroot\dist\app.js" />
+    <_ContentIncludedByDefault Remove="wwwroot\dist\polyfills.js" />
+    <_ContentIncludedByDefault Remove="wwwroot\lib\bootstrap\dist\css\bootstrap-grid.css" />
+    <_ContentIncludedByDefault Remove="wwwroot\lib\bootstrap\dist\css\bootstrap-grid.css.map" />
+    <_ContentIncludedByDefault Remove="wwwroot\lib\bootstrap\dist\css\bootstrap-grid.min.css" />
+    <_ContentIncludedByDefault Remove="wwwroot\lib\bootstrap\dist\css\bootstrap-grid.min.css.map" />
+    <_ContentIncludedByDefault Remove="wwwroot\lib\bootstrap\dist\css\bootstrap-reboot.css" />
+    <_ContentIncludedByDefault Remove="wwwroot\lib\bootstrap\dist\css\bootstrap-reboot.css.map" />
+    <_ContentIncludedByDefault Remove="wwwroot\lib\bootstrap\dist\css\bootstrap-reboot.min.css" />
+    <_ContentIncludedByDefault Remove="wwwroot\lib\bootstrap\dist\css\bootstrap-reboot.min.css.map" />
+    <_ContentIncludedByDefault Remove="wwwroot\lib\bootstrap\dist\css\bootstrap.css" />
+    <_ContentIncludedByDefault Remove="wwwroot\lib\bootstrap\dist\css\bootstrap.css.map" />
+    <_ContentIncludedByDefault Remove="wwwroot\lib\bootstrap\dist\css\bootstrap.min.css" />
+    <_ContentIncludedByDefault Remove="wwwroot\lib\bootstrap\dist\css\bootstrap.min.css.map" />
+    <_ContentIncludedByDefault Remove="wwwroot\lib\bootstrap\dist\js\bootstrap.bundle.js" />
+    <_ContentIncludedByDefault Remove="wwwroot\lib\bootstrap\dist\js\bootstrap.bundle.js.map" />
+    <_ContentIncludedByDefault Remove="wwwroot\lib\bootstrap\dist\js\bootstrap.bundle.min.js" />
+    <_ContentIncludedByDefault Remove="wwwroot\lib\bootstrap\dist\js\bootstrap.bundle.min.js.map" />
+    <_ContentIncludedByDefault Remove="wwwroot\lib\bootstrap\dist\js\bootstrap.js" />
+    <_ContentIncludedByDefault Remove="wwwroot\lib\bootstrap\dist\js\bootstrap.js.map" />
+    <_ContentIncludedByDefault Remove="wwwroot\lib\bootstrap\dist\js\bootstrap.min.js" />
+    <_ContentIncludedByDefault Remove="wwwroot\lib\bootstrap\dist\js\bootstrap.min.js.map" />
+    <_ContentIncludedByDefault Remove="wwwroot\lib\bootstrap\LICENSE" />
+    <_ContentIncludedByDefault Remove="wwwroot\lib\jquery-validation-unobtrusive\jquery.validate.unobtrusive.js" />
+    <_ContentIncludedByDefault Remove="wwwroot\lib\jquery-validation-unobtrusive\jquery.validate.unobtrusive.min.js" />
+    <_ContentIncludedByDefault Remove="wwwroot\lib\jquery-validation-unobtrusive\LICENSE.txt" />
+    <_ContentIncludedByDefault Remove="wwwroot\lib\jquery-validation\dist\additional-methods.js" />
+    <_ContentIncludedByDefault Remove="wwwroot\lib\jquery-validation\dist\additional-methods.min.js" />
+    <_ContentIncludedByDefault Remove="wwwroot\lib\jquery-validation\dist\jquery.validate.js" />
+    <_ContentIncludedByDefault Remove="wwwroot\lib\jquery-validation\dist\jquery.validate.min.js" />
+    <_ContentIncludedByDefault Remove="wwwroot\lib\jquery-validation\LICENSE.md" />
+    <_ContentIncludedByDefault Remove="wwwroot\lib\jquery\dist\jquery.js" />
+    <_ContentIncludedByDefault Remove="wwwroot\lib\jquery\dist\jquery.min.js" />
+    <_ContentIncludedByDefault Remove="wwwroot\lib\jquery\dist\jquery.min.map" />
+    <_ContentIncludedByDefault Remove="wwwroot\lib\jquery\LICENSE.txt" />
+    <_ContentIncludedByDefault Remove="wwwroot\css\.DS_Store" />
+    <_ContentIncludedByDefault Remove="wwwroot\css\primeicons.css" />
+    <_ContentIncludedByDefault Remove="wwwroot\css\primeng.css" />
+    <_ContentIncludedByDefault Remove="wwwroot\css\primeng.min.css" />
+    <_ContentIncludedByDefault Remove="wwwroot\css\theme.css" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="ClientApp\src\assets\fonts\open-sans-v15-latin-300.eot" />
+    <Content Include="ClientApp\src\assets\fonts\open-sans-v15-latin-300.svg" />
+    <Content Include="ClientApp\src\assets\fonts\open-sans-v15-latin-300.ttf" />
+    <Content Include="ClientApp\src\assets\fonts\open-sans-v15-latin-300.woff" />
+    <Content Include="ClientApp\src\assets\fonts\open-sans-v15-latin-300.woff2" />
+    <Content Include="ClientApp\src\assets\fonts\open-sans-v15-latin-700.eot" />
+    <Content Include="ClientApp\src\assets\fonts\open-sans-v15-latin-700.svg" />
+    <Content Include="ClientApp\src\assets\fonts\open-sans-v15-latin-700.ttf" />
+    <Content Include="ClientApp\src\assets\fonts\open-sans-v15-latin-700.woff" />
+    <Content Include="ClientApp\src\assets\fonts\open-sans-v15-latin-700.woff2" />
+    <Content Include="ClientApp\src\assets\fonts\open-sans-v15-latin-regular.eot" />
+    <Content Include="ClientApp\src\assets\fonts\open-sans-v15-latin-regular.svg" />
+    <Content Include="ClientApp\src\assets\fonts\open-sans-v15-latin-regular.ttf" />
+    <Content Include="ClientApp\src\assets\fonts\open-sans-v15-latin-regular.woff" />
+    <Content Include="ClientApp\src\assets\fonts\open-sans-v15-latin-regular.woff2" />
+    <Content Include="ClientApp\src\assets\fonts\primeicons.ttf" />
+    <Content Include="ClientApp\src\index.html">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="ClientApp\src\styles.css" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="ClientApp\src\assets" />
   </ItemGroup>
 </Project>
