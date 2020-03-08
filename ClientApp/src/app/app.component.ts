@@ -11,12 +11,14 @@ import { HttpRequestService } from "./Services/http.request.service";
     providers: [ HttpRequestService ]
 })
 
+
 export class AppComponent implements OnInit {
     
     userName = 'LogIn';
     isUserAuthenticated: boolean;
 
-    constructor(private jwtHelper: JwtHelperService, private router: Router, private http: HttpRequestService) {}
+    constructor(private jwtHelper: JwtHelperService, private router: Router, private http: HttpRequestService) 
+    {}
 
     ngOnInit(): void {  
         this.CheckUserAuth();
@@ -53,11 +55,11 @@ export class AppComponent implements OnInit {
     {
         if (this.isUserAuthenticated) 
         {
-            this.http.getRequest('account/getrole')
+            this.http.getRequest('account/getrole')                
                 .subscribe(response =>
                     {
-                        console.log(response);
-                        alert(response);                        
+                        console.log(response['result']);
+                        alert(response['result']);                        
                     }, err =>
                     {
                         console.log(err);

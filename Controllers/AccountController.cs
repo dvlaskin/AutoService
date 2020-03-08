@@ -74,10 +74,9 @@ namespace AutoService.Controllers
 
         
         [HttpGet, Authorize(Roles = "admin")]
-        //[AllowAnonymous]
         public IActionResult GetRole()
         {
-            return Ok("Ваша роль: администратор");
+            return Ok("{ \"result\": \"Ваша роль: администратор\" }");
         }      
         
     }
