@@ -26,10 +26,10 @@
                         <a class="nav-link text-dark" routerLink="/login" routerLinkActive="active">Menu {{userName}}</a>
                     </li>
                     <li *ngIf="isUserAuthenticated">
-                        <a class="nav-link text-dark" (click)="logOut()">LogOut</a>
+                        <a class="nav-link text-dark" href="#" (click)="logOut()">LogOut</a>
                     </li>
                     <li>
-                        <span class="nav-link text-dark" (click)="testGet()" >Test</span>
+                        <a class="nav-link text-dark" href="#" (click)="testGet()" >Test</a>
                     </li>
                 </ul>
             </div>
