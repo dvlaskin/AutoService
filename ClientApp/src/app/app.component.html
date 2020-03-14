@@ -1,39 +1,12 @@
 
 <header>
-    <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-        <div class="container">
+    <nav class="navbar navbar-light bg-white border-bottom box-shadow">        
+        <div>
             <a class="navbar-brand" href="/">AutoService</a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                    aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
-                <ul class="navbar-nav flex-grow-1">
-                    <li class="nav-item">
-                        <a class="nav-link text-dark" routerLink="/home" routerLinkActive="active">Home</a>
-                    </li>
-                </ul>
-            </div>
-            <div>
-                <ul class="navbar-nav flex-grow-1">
-                    <li *ngIf="CheckUserAuth() == false">
-                        <a class="nav-link text-dark" routerLink="/signup" routerLinkActive="active">SignUp</a>
-                    </li>
-                    <li *ngIf="isUserAuthenticated == false">
-                        <a class="nav-link text-dark" routerLink="/login" routerLinkActive="active">LogIn</a>
-                    </li>
-                    <li *ngIf="isUserAuthenticated">
-                        <a class="nav-link text-dark" routerLink="/login" routerLinkActive="active">Menu {{userName}}</a>
-                    </li>
-                    <li *ngIf="isUserAuthenticated">
-                        <a class="nav-link text-dark" href="#" (click)="logOut()">LogOut</a>
-                    </li>
-                    <li>
-                        <a class="nav-link text-dark" href="#" (click)="testGet()" >Test</a>
-                    </li>
-                </ul>
-            </div>
         </div>
+        <div>
+            <p-menubar class="navbar-nav flex-grow-1" [model]="items"></p-menubar>
+        </div>         
     </nav>
 </header>
 <div class="container">

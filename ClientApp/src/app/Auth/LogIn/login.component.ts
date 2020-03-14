@@ -15,7 +15,7 @@ export class LoginComponent {
     
     
     constructor(private httpService: HttpRequestService, private router: Router) { 
-        
+        console.log('LoginComponent => constructor');
     }
     
     login(form: NgForm) {

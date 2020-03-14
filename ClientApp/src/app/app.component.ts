@@ -1,8 +1,9 @@
-import {Component, OnInit} from '@angular/core';
-import { Router } from '@angular/router';
-import { JwtHelperService } from '@auth0/angular-jwt';
-import { tokenGetter } from "./app-jwt.module";
-import { HttpRequestService } from "./Services/http.request.service";
+import {Component, OnInit}      from '@angular/core';
+import { Router, NavigationEnd }               from '@angular/router';
+import { JwtHelperService }     from '@auth0/angular-jwt';
+import { tokenGetter }          from "./app-jwt.module";
+import { HttpRequestService }   from "./Services/http.request.service";
+import { MenuItem }             from 'primeng/api';
 
 
 @Component({
@@ -16,13 +17,41 @@ export class AppComponent implements OnInit {
     
     userName = 'LogIn';
     isUserAuthenticated: boolean;
+    items: MenuItem[];
 
     constructor(private jwtHelper: JwtHelperService, private router: Router, private http: HttpRequestService) 
-    {}
+    {
+        console.log('AppComponent => constructor');
 
-    ngOnInit(): void {  
+        router.events.subscribe(e => {
+            if(e instanceof NavigationEnd)
+            {
+                console.log(e);
+                if (e.url === '/')
+                {
+                    this.ngOnInit();
+                }
+            }
+        });
+    }
+
+    ngOnInit(): void 
+    {  
+        console.log('AppComponent => ngOnInit');
+        
         this.CheckUserAuth();
         this.setUserName();
+        
+        if (this.isUserAuthenticated)
+        {
+            this.AuthenticatedMenuBar();
+        }
+        else 
+        {
+            this.NotAuthenticatedMenuBar();
+        }
+        
+        
     }
 
     CheckUserAuth() {
@@ -40,15 +69,64 @@ export class AppComponent implements OnInit {
             this.isUserAuthenticated = false;
         }
         
-        // console.log(this.isUserAuthenticated);
         return this.isUserAuthenticated;
     }
 
-    public logOut() {
-        
+    AuthenticatedMenuBar()
+    {
+        this.items = 
+        [
+            {
+                label: 'Home',
+                routerLink: [ '/home' ]
+            },
+            {
+                label: 'CheckRole',
+                command: () => this.testGet()
+            },
+            {
+                label: this.userName,
+                icon: 'pi pi-fw pi-file',
+                items: [
+                    { label: 'Settings' },
+                    { separator:true },
+                    { label: 'Quit' }
+                ]
+            },
+            {separator:true},
+            {
+                label: 'Quit', icon: 'pi pi-fw pi-times', command: () => this.logOut()
+            }
+        ];
+    }
+    
+    NotAuthenticatedMenuBar()
+    {
+        this.items =
+        [
+            {
+                label: 'Home',
+                routerLink: [ '/home' ],
+                styleClass: 'style-menubar'
+            },
+            {
+                label: 'SignUp',
+                routerLink: ['/signup']
+            },
+            {
+                label: 'LogIn', 
+                routerLink: ['/login']
+            }
+        ]
+    }
+
+    public logOut() 
+    {
+        console.log('AppComponent => logOut');
         localStorage.removeItem("jwt");
-        this.CheckUserAuth();
+        this.ngOnInit();
         this.router.navigate(["/"]);
+        
     }
     
     public testGet()
@@ -73,7 +151,7 @@ export class AppComponent implements OnInit {
     private setUserName()
     {
         const token: string = tokenGetter();
-        if (token != null)
+        if (token)
         {
             const tokenInfo = this.jwtHelper.decodeToken(token);
             this.userName = tokenInfo.UserName;
@@ -82,6 +160,6 @@ export class AppComponent implements OnInit {
     
     private resetUserName()
     {
-        this.userName = "LogIn";
+        this.userName = '';
     }
 }
