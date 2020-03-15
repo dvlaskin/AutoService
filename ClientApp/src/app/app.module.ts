@@ -8,12 +8,14 @@ import { HttpClientModule }         from '@angular/common/http';
 import { AppRoutingModule }         from './app-routing.module';
 import { AppJwtModule}              from "./app-jwt.module";
 import { AppPrimengModule }         from "./app-primeng.module";
+import { AuthGuard }                from "./Services/auth-guard.service";
 
 
 import { AppComponent }             from './app.component';
 import { HomeComponent }            from "./Home/home.component";
 import { LoginComponent }           from "./Auth/LogIn/login.component";
 import { SignupComponent }          from "./Auth/SignUp/signup.component";
+import { TasksModule }              from "./Tasks/tasks.module";
 
 
 
@@ -26,9 +28,11 @@ import { SignupComponent }          from "./Auth/SignUp/signup.component";
             AppRoutingModule, 
             AppJwtModule,
             AppPrimengModule,
-            HttpClientModule
+            HttpClientModule,
+            TasksModule
         ],
     declarations: [ AppComponent, HomeComponent, LoginComponent, SignupComponent ],
+    providers: [ AuthGuard ],
     bootstrap:    [ AppComponent ]
 })
 

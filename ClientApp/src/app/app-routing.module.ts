@@ -2,11 +2,12 @@ import { NgModule }             from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
 import { SelectivePreloadingStrategyService } from './selective-preloading-strategy.service';
-import { AuthGuard } from "./Services/auth-guard.service";
+import { AuthGuard }            from "./Services/auth-guard.service";
 
-import { HomeComponent } from "./Home/home.component";
-import { LoginComponent } from "./Auth/LogIn/login.component";
-import { SignupComponent } from "./Auth/SignUp/signup.component";
+import { HomeComponent }        from "./Home/home.component";
+import { LoginComponent }       from "./Auth/LogIn/login.component";
+import { SignupComponent }      from "./Auth/SignUp/signup.component";
+import { UserPanelComponent }   from "./Tasks/user-panel/user-panel.component";
 
 
 const appRoutes: Routes = [
@@ -29,6 +30,11 @@ const appRoutes: Routes = [
     {
         path: 'user',
         component: HomeComponent,
+        canActivate: [AuthGuard]
+    },
+    {
+        path: 'userPanel',
+        component: UserPanelComponent,
         canActivate: [AuthGuard]
     },
     { path: '**', redirectTo: '' }

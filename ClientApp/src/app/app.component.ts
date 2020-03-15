@@ -81,6 +81,10 @@ export class AppComponent implements OnInit {
                 routerLink: [ '/home' ]
             },
             {
+                label: 'Tasks',
+                routerLink: [ '/userPanel' ]
+            },
+            {
                 label: 'CheckRole',
                 command: () => this.testGet()
             },
